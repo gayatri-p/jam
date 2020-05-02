@@ -48,12 +48,12 @@ function addItem() {
 
 function renderNotesList() {
     if (data) {
-        $.each(data, function(title, c) {
+        $.each(data, function (title, c) {
             let li = document.createElement('li')
             li.innerText = title
-    
+
             notesList.prepend(li)
-        })    
+        })
     } else {
         // SHOW NO NOTES EXIST
     }
@@ -99,7 +99,7 @@ const changeState = state => {
         btnDelete.show()
         editWindow.show()
         inputs.removeAttr('readonly')
-    
+
     } else if (state == 'display') {
         btnEdit.show()
         btnSave.hide()
@@ -147,4 +147,8 @@ btnDelete.click(_ => {
 changeState('home')
 
 // BACKDOOR
-$('.title').click(_ => changeState('home'))
+$('.title').click(_ => {
+    inputTitle.val('')
+    inputContent.val('')
+    changeState('home')
+})
