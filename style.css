@@ -6,13 +6,25 @@
 
 @font-face { 
     font-family:"Circular";
-    src: url("circular_std.otf") /* TTF file for CSS3 browsers */
+    src: url("circular_std.otf")
+}
+
+@font-face { 
+    font-family:"Book";
+    src: url("circular_std_book.otf")
+}
+
+:root {
+    --button-size: 1.3rem;
+    --color: #12a375;
+    --font-n: 'Book', sans-serif;
+    --font-b: 'Circular', sans-serif;
 }
 
 body {
     width: 100vw;
     background: #191919;
-    font-family: 'Circular', sans-serif;
+    font-family: var(--font-b);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -23,36 +35,56 @@ section {
     position: relative;
     flex: 1;
     overflow-y: scroll;
-    /* height: calc(100vh - 33.4px); */
 }
 
 .title-bar {
     display: flex;
     justify-content: space-between;
-    font-size: 1.8rem;
-    padding: 10px;
-    background: #0d2cda;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 12px;
+    background: var(--color);
     color: #fff;
-    /* font-weight: 700; */
+}
+
+.title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-left: .5rem;
 }
 
 .btns {
     display: flex;
 }
 
+.btns img {
+    height: 100%;
+    width: 100%;
+    fill: #fff;
+}
+
 .btn {
-    background: #fff;
-    color: #0d2cda;
-    height: 2rem;
-    width: 2rem;
+    height: var(--button-size);
+    width: var(--button-size);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
 }
 
+#edit-btn, #save-btn {
+    margin: 0 19px;
+}
+
+.empty-message {
+    text-align: center;
+    margin-top: 60px;
+    color: #fff8;
+    font-size: 1.1rem;
+}
+
 .notes-list {
-    /* font-weight: 600; */
+    font-family: var(--font-n);
     font-size: 1.4rem;
     background: #191919;
     color: #fff;
@@ -61,7 +93,7 @@ section {
 .notes-list li {
     list-style: none;
     padding: 14px 15px;
-    border-bottom: 1px solid #fff5;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.185);
 }
 
 .edit-window {
@@ -73,10 +105,19 @@ section {
     background: #191919;
     display: flex;
     flex-direction: column;
+    transform: scale(0);
+    transform-origin: bottom;;
+    transition: transform .1s ease-in;
+}
+
+.edit-window.show {
+    transform: scale(1);
+    transition: transform .1s ease-out;
 }
 
 input, textarea {
     all: unset;
+    font-family: var(--font-n);
     font-size: 1.4rem;
     margin: 10px;
     padding-bottom: 5px;
@@ -85,4 +126,5 @@ input, textarea {
 
 textarea {
     flex: 1;
+    white-space: pre-wrap;
 }

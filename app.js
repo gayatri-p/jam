@@ -31,9 +31,8 @@ function addItem() {
     let title = inputTitle.val()
     let content = inputContent.val()
 
-    if (title || content) {
-        inputTitle.val('')
-        inputContent.val('')
+    if (title || content) { 
+        clearInputs()
 
         data[title] = content
 
@@ -55,7 +54,7 @@ function renderNotesList() {
             notesList.prepend(li)
         })
     } else {
-        // SHOW NO NOTES EXIST
+        // NO NOTES EXIST
     }
 }
 
@@ -89,25 +88,29 @@ const changeState = state => {
     if (state == 'home') {
         btnEdit.hide()
         btnSave.hide()
-        btnAdd.show()
+        btnAdd.fadeIn()
         btnDelete.hide()
-        editWindow.hide()
+        editWindow.removeClass('show')
     } else if (state == 'edit') {
         btnEdit.hide()
-        btnSave.show()
+        btnSave.fadeIn()
         btnAdd.hide()
-        btnDelete.show()
-        editWindow.show()
+        btnDelete.fadeIn()
+        editWindow.addClass('show')
         inputs.removeAttr('readonly')
-
     } else if (state == 'display') {
-        btnEdit.show()
+        btnEdit.fadeIn()
         btnSave.hide()
         btnAdd.hide()
-        btnDelete.show()
-        editWindow.show()
+        btnDelete.fadeIn()
+        editWindow.addClass('show')
         inputs.attr('readonly', 'readonly')
     }
+}
+
+function clearInputs() {
+    inputTitle.val('')
+    inputContent.val('')
 }
 
 function updateNotesList() {
@@ -116,6 +119,11 @@ function updateNotesList() {
         changeState('display')
         displayNote(e.target.innerText)
     })
+    if (notesListItems.length) {
+        $('.empty-message').hide()
+    } else {
+        $('.empty-message').show()
+    }
 }
 
 btnEdit.click(_ => {
@@ -130,17 +138,26 @@ btnAdd.click(_ => {
 })
 
 btnSave.click(_ => {
-    changeState('home')
     if (editMode) {
         saveExistingNote(prevTitle)
     } else {
+        if (inputTitle.val() in data) {
+            alert('Another note already exists in that name.')
+            return
+        }
         addItem()
     }
+    changeState('home')
 })
 
 btnDelete.click(_ => {
+    let confirmDelete = confirm('Are you sure about this?')
+    if (!confirmDelete) {
+        return
+    }
     changeState('home')
     deleteNote(inputTitle.val())
+    clearInputs()
 })
 
 //btnSave.click(addItem)
@@ -148,7 +165,6 @@ changeState('home')
 
 // BACKDOOR
 $('.title').click(_ => {
-    inputTitle.val('')
-    inputContent.val('')
+    clearInputs()
     changeState('home')
 })

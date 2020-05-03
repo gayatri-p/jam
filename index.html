@@ -5,24 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0d825d">
     <title>Document</title>
 </head>
 <body>
     <div class="title-bar">
         <div class="title">Remembrall</div>
         <div class="btns">
-            <div class="btn" id="add-btn">+</div>
-            <div class="btn" id="edit-btn">e</div>
-            <div class="btn" id="save-btn">s</div>
-            <div class="btn" id="delete-btn">d</div>
+            <div class="btn" id="add-btn"><img src="add.svg"></div>
+            <div class="btn" id="edit-btn"><img src="edit.svg"></div>
+            <div class="btn" id="save-btn"><img src="save.svg"></div>
+            <div class="btn" id="delete-btn"><img src="delete.svg"></div>
         </div>
     </div>
 
     <section>
-        <ul class="notes-list">
-            <!-- <li class="note">Without Me</li>
-            <li class="note">Demons 🐉</li> -->
-        </ul>
+        <ul class="notes-list"></ul>
+
+        <div class="empty-message">
+            No notes saved.
+        </div>
     
         <div class="edit-window">
             <input class="input" type="text" name="" id="title" placeholder="Title">
