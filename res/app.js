@@ -91,6 +91,7 @@ const changeState = state => {
         btnAdd.fadeIn()
         btnDelete.hide()
         editWindow.removeClass('show')
+        fixHeight(true)
     } else if (state == 'edit') {
         btnEdit.hide()
         btnSave.fadeIn()
@@ -98,6 +99,7 @@ const changeState = state => {
         btnDelete.fadeIn()
         editWindow.addClass('show')
         inputs.removeAttr('readonly')
+        fixHeight(false)
     } else if (state == 'display') {
         btnEdit.fadeIn()
         btnSave.hide()
@@ -105,6 +107,7 @@ const changeState = state => {
         btnDelete.fadeIn()
         editWindow.addClass('show')
         inputs.attr('readonly', 'readonly')
+        fixHeight(false)
     }
 }
 
@@ -160,7 +163,18 @@ btnDelete.click(_ => {
     clearInputs()
 })
 
-//btnSave.click(addItem)
+function fixHeight(goingBack) {
+    if (goingBack) {
+        notesList.css('height', '')
+        notesList.css('overflow-y', 'hidden')
+    } else {
+        secHeight = $('section').css('height')
+        notesList.css('overflow-y', 'hidden')
+        notesList.css('height', secHeight)
+    }
+}
+
+
 changeState('home')
 
 // BACKDOOR
